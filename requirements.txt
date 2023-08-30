@@ -4,7 +4,6 @@ pymongo
 pandas
 numpy
 streamlit
-streamlit_lottie
 streamlit_option_menu
 requests
 numpy
