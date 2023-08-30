@@ -6,8 +6,5 @@ numpy
 streamlit
 streamlit_lottie
 streamlit_option_menu
-PIL
-io
-time
 requests
 numpy
