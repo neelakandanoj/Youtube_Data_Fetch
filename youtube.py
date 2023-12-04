@@ -18,6 +18,20 @@ st.set_page_config(page_title= "Youtube Analysis",
 
 navigation,data=st.columns([1,4.55])
 with navigation:
+    url = requests.get("https://assets7.lottiefiles.com/packages/lf20_gggssfcj.json")
+    url_json = dict()
+    if url.status_code == 200:
+        url_json = url.json()
+    else:
+        print("Error in URL")
+    st_lottie(url_json,
+              reverse=False,
+              height=True,
+              width=True,
+              speed=1,
+              loop=True,
+              quality='high'
+              )
 
 
     selected = option_menu('Main Menu', ['HOME',"CHANNEL FETCH","DATABASE MIGRATION","CHANNEL INSIGHTS"],
@@ -27,8 +41,18 @@ with data:
 
 with data:
     if selected=='HOME':
-        st.markdown('###  ***:black[WELCOME TO YOUTUBE CHANNEL DATA ANALYSIS]***')
-
+        st.markdown('###  ***:green[WELCOME TO YOUTUBE CHANNEL DATA ANALYSIS]***')
+        st.markdown("##### ***This application involves getting channel_Id from user as a input to fetching channel data like title,id,subscription,likes,dislikes.. from YouTube using the YouTube API , storing the collected data in a NoSQL database, and then querying the data from the NoSQL database using SQL queries. Additionally, the channel data can be migrated to a SQLite database for further analysis and exploration.***")
+        st.markdown("#### TECHNOLOGY USED")
+        st.markdown('***:yellow[Python]***')
+        st.markdown('***:yellow[NOSQL - MongoDB]***')
+        st.markdown('***:yellow[SQL - Sqlite]***')
+        st.markdown('***:yellow[Google API integration]***')
+        st.markdown('***:yellow[Streamlit - GUI]***')
+        st.markdown('###### Here you can find how to get channel_ID from youtube channel please read the below caption to know more about the youtube API ')
+        st.info("Please note: Using Google API key we have raise 10000 request per day more request raise an error as Quota Error",icon='ℹ️')
+        st.markdown(' * Select a particular channel on youtube webpage *:blue[right click on mouse > view page resource]* click on **:blue[ctrl+f]** for find option there you will search for :blue[channelId] there you find like this - ***:blue[UCiEmtpFVJjpvdhsQ2QAhxVA]***')
+        st.markdown("To learn more about Youtube API console please [click here](https://console.developers.google.com) and to visit the Youtube DATA API website [click here](https://developers.google.com/youtube/v3/code_samples/code_snippets) to find use cases .")
     #this option for channel information
     if selected=='CHANNEL FETCH':
         left,center,right=st.columns([3.5,5.5,2])
@@ -128,10 +152,10 @@ with data:
                     channel_name_to_find = option
                     channel_df, playlist_df,video_df, comment_df = NOSQL_TO_SQL(channel_name_to_find)
                     # Migrate data to SQL database
-                    channel_df.to_sql(name='channel_data', con=eng, if_exists='append', index=False)
-                    playlist_df.to_sql(name='playlist_data', con=eng, if_exists='append', index=False)
-                    video_df.to_sql(name='video_data', con=eng, if_exists='append', index=False)
-                    comment_df.to_sql(name='comment_data', con=eng, if_exists='append', index=False)
+                    channel_df.to_sql(name='channel_data', con=eng, if_exists='append', index=False,schema=None)
+                    playlist_df.to_sql(name='playlist_data', con=eng, if_exists='append', index=False,schema=None)
+                    video_df.to_sql(name='video_data', con=eng, if_exists='append', index=False,schema=None)
+                    comment_df.to_sql(name='comment_data', con=eng, if_exists='append', index=False,schema=None)
                     st.success(f"{channel_name_to_find} channel migrated successfully", icon='✅')
 
 
