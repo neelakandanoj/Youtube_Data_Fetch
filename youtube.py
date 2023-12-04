@@ -37,7 +37,7 @@ with navigation:
     selected = option_menu('Main Menu', ['HOME',"CHANNEL FETCH","DATABASE MIGRATION","CHANNEL INSIGHTS"],
                        icons=["house-fill",'youtube','box-arrow-in-up-right','bar-chart-fill'],default_index=0)#cloud-check##
 with data:
-    st.markdown("<h1 style='text-align: left; color: black;'>DATA HARVESTING AND WARHOUSING</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left; '>DATA HARVESTING AND WARHOUSING</h1>", unsafe_allow_html=True)
 
 with data:
     if selected=='HOME':
